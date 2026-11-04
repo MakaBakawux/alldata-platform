@@ -2,6 +2,7 @@ package com.platform.admin.core.util;
 
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -15,6 +16,11 @@ public class JacksonUtil {
 	private static Logger logger = LoggerFactory.getLogger(JacksonUtil.class);
 
     private final static ObjectMapper objectMapper = new ObjectMapper();
+
+    static{
+        objectMapper.enable(JsonParser.Feature.ALLOW_UNQUOTED_CONTROL_CHARS);
+    }
+
     public static ObjectMapper getInstance() {
         return objectMapper;
     }

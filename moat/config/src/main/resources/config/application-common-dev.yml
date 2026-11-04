@@ -2,37 +2,37 @@
 common:
   rabbitmq:
     host: localhost
-    username: root
-    password: 123456
+    username: guest
+    password: guest
     port: 5672
   redis:
     host: localhost
-    password: 123456
+    password: ""
     port: 6379
   mysql:
     primary:
       username: root
-      password: 123456
-      url: jdbc:mysql://localhost:3306/studio?useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&serverTimezone=GMT%2B8
+      password: 159357
+      url: jdbc:mysql://localhost:3306/alldata?useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&serverTimezone=GMT%2B8&allowPublicKeyRetrieval=true
     master:
-      driver: com.mysql.cj.jdbc.Driver
+      driver: com.mysql.jdbc.Driver
       username: root
-      password: 123456
-      url: jdbc:mysql://localhost:3306/studio?useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&serverTimezone=GMT%2B8
+      password: 159357
+      url: jdbc:mysql://localhost:3306/alldata?useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&serverTimezone=GMT%2B8&allowPublicKeyRetrieval=true
     flowable:
       username: root
-      password: 123456
-      url: jdbc:mysql://localhost:3306/studio?useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&serverTimezone=GMT%2B8&nullCatalogMeansCurrent=true
+      password: 159357
+      url: jdbc:mysql://localhost:3306/alldata?useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&serverTimezone=GMT%2B8&nullCatalogMeansCurrent=true&allowPublicKeyRetrieval=true
     quartz:
       username: root
-      password: 123456
-      url: jdbc:mysql://localhost:3306/studio?useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&serverTimezone=GMT%2B8
+      password: 159357
+      url: jdbc:mysql://localhost:3306/alldata?useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&serverTimezone=GMT%2B8&allowPublicKeyRetrieval=true
     druid:
       username: root
-      password: 123456
-      url: jdbc:mysql://localhost:3306/studio?useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&serverTimezone=GMT%2B8
+      password: 159357
+      url: jdbc:mysql://localhost:3306/alldata?useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&serverTimezone=GMT%2B8&allowPublicKeyRetrieval=true
     dts:
       driver-class-name: com.mysql.jdbc.Driver
       username: root
-      password: 123456
-      url: jdbc:mysql://localhost:3306/studio?useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&serverTimezone=GMT%2B8
+      password: 159357
+      url: jdbc:mysql://localhost:3306/alldata?useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&serverTimezone=GMT%2B8&allowPublicKeyRetrieval=true

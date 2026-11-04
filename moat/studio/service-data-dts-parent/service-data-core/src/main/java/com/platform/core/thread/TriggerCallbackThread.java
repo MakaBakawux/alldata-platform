@@ -17,6 +17,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import java.nio.charset.StandardCharsets;
 
 public class TriggerCallbackThread {
     private static Logger logger = LoggerFactory.getLogger(TriggerCallbackThread.class);
@@ -212,28 +215,40 @@ public class TriggerCallbackThread {
     }
 
     private void retryFailCallbackFile() {
-
-        // valid
         File callbackLogPath = new File(failCallbackFilePath);
         if (!callbackLogPath.exists()) {
             return;
         }
         if (callbackLogPath.isFile()) {
             callbackLogPath.delete();
+            return;
         }
-        if (!(callbackLogPath.isDirectory() && callbackLogPath.list() != null && callbackLogPath.list().length > 0)) {
+        File[] files = callbackLogPath.listFiles();
+        if (files == null || files.length == 0) {
             return;
         }
 
-        // load and clear file, retry
-        List<HandleCallbackParam> params;
-        for (File f : callbackLogPath.listFiles()) {
-            byte[] ps = FileUtil.readFileContent(f);
-            params = (List<HandleCallbackParam>) JobExecutor.getSerializer().deserialize(ps, HandleCallbackParam.class);
-            f.delete();
-            doCallback(params);
+        for (File f : files) {
+            try {
+                byte[] ps = FileUtil.readFileContent(f);
+                // 先将字节数组转为字符串（假设文件内容为 JSON 字符串）
+                String content = new String(ps, StandardCharsets.UTF_8);
+
+                // 使用 Jackson 解析为 List<HandleCallbackParam>
+                ObjectMapper mapper = new ObjectMapper();
+                List<HandleCallbackParam> params = mapper.readValue(content, new TypeReference<List<HandleCallbackParam>>() {});
+
+                // 解析成功，删除原文件
+                f.delete();
+                // 执行回调
+                doCallback(params);
+            } catch (Exception e) {
+                logger.error("处理回调文件失败，文件将被移动到备份目录: {}", f.getAbsolutePath(), e);
+                // 将损坏的文件移到备份目录，避免反复处理
+                File backupDir = new File(callbackLogPath.getParentFile(), "callbacklog_bak");
+                if (!backupDir.exists()) backupDir.mkdirs();
+                f.renameTo(new File(backupDir, f.getName()));
+            }
         }
-
     }
-
 }

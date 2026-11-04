@@ -86,7 +86,40 @@ export const constantRouterMap = [
         meta: { title: '个人中心' }
       }
     ]
+  },
+
+  // 👇 👇 👇 将 OCR 路由加在这里 👇 👇 👇
+  {
+    path: '/ocr',
+    component: Layout,
+    redirect: '/ocr/index',
+    name: 'Ocr',
+    meta: { title: '智能OCR识别', icon: 'el-icon-picture-outline' },
+    children: [
+      {
+        path: 'index',
+        name: 'OcrIndex',
+        component: () => import('@/views/tools/ocr/index'),
+        meta: { title: 'OCR 识别', icon: 'el-icon-picture-outline' }
+      }
+    ]
+  },
+  {
+    path: '/engineering',
+    component: Layout,
+    redirect: '/engineering/index',
+    name: 'Engineering',
+    meta: { title: '工程数据工作台', icon: 'el-icon-data-analysis' },
+    children: [
+      {
+        path: 'index',
+        name: 'EngineeringIndex',
+        component: () => import('@/views/engineering/index'),
+        meta: { title: '查询与统计', icon: 'el-icon-data-analysis' }
+      }
+    ]
   }
+  // 👆 👆 👆 ======================= 👆 👆 👆
 ]
 
 export default new Router({
